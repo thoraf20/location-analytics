@@ -1,4 +1,5 @@
 import fs from 'fs';
+import calculateDistance from '../calculateDistance'
 
 const fsp = fs.promises;
 
@@ -34,3 +35,5 @@ const getAnalytics = async (req, res, next)  => {
         distance: totalLength
     })
 };
+
+export default getAnalytics;
