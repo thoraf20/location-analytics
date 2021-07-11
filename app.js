@@ -3,10 +3,10 @@ import bodyParser from 'body-parser';
 import fs from 'fs';
 import morgan from 'morgan';
 import cors from 'cors';
-import AppError from '../../utilities/appError';
-import routes from './routes/analyticRoute';
-import globalErrorHandler from './controllers/errorController';
-import schema from './schema';
+import AppError from './utilities/appError.js';
+import routes from './routes/analyticRoute.js';
+import  {sendErrorDev}  from "./controllers/errorController.js";
+import schema from './utilities/Validation/schema.js';
 
 const app = express();
 const corsOptions = {
@@ -24,6 +24,6 @@ app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`), 404);
 });
 
-app.use(globalErrorHandler);
+app.use(sendErrorDev);
 
 export default app;

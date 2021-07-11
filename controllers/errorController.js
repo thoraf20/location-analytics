@@ -1,4 +1,4 @@
-const sendErrorDev = (err, res) => {
+export const sendErrorDev = (err, res) => {
     res.status(err.statusCode).json({
         status: err.status,
         error: err,
@@ -7,7 +7,7 @@ const sendErrorDev = (err, res) => {
     });
 }
 
-const sendErrorProd = (err, res) => {
+export function sendErrorProd(err, res) {
     if (ErrorEvent.isOperational) {
         res.status(err.statusCode).json({
             status: err.status,
@@ -22,3 +22,4 @@ const sendErrorProd = (err, res) => {
         })
     }
 }
+

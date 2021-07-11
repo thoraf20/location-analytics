@@ -1,10 +1,10 @@
 import fs from 'fs';
-import catchAsync from '../catchAsync';
-import AppError from '../../utilities/appError';
+import AppError from '../utilities/appError.js';
+import schema from '../utilities/Validation/schema.js';
 
 const fsp = fs.promises;
 
-const postAnalytics = catchAsync( async (req, res, next) => {
+const postAnalytics = async (req, res, next) => {
     const { ip, coordinates } = req.body;
     const validator = await schema.validateAsync(req.body);
     const reportAnalytics = [];
@@ -22,6 +22,6 @@ const postAnalytics = catchAsync( async (req, res, next) => {
                 message: 'IP and Coordinates successfully taken'
         }
     })
-});
+};
 
 export default postAnalytics
