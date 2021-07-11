@@ -1,9 +1,11 @@
 import fs from 'fs';
-import calculateDistance from '../calculateDistance'
+import calculateDistance from '../calculateDistance';
+import catchAsync from "../catchAsync";
+import AppError from "./utilities/appError";
 
 const fsp = fs.promises;
 
-const getAnalytics = async (req, res, next)  => {
+const getAnalytics = catchAsync(async (req, res, next)  => {
     const { ip } = req.query;
     const reportAnalytics = [];
     if (fs.existsSync(`${__dirname}/storeAnalytics`) ) {
@@ -12,7 +14,7 @@ const getAnalytics = async (req, res, next)  => {
     }
     for (let i = 0; i < reportAnalytics.length; i++) {
         if (reportAnalytics[i].ip !== ip) {
-            return ('No coordinates found with this IP', 404);
+            return next (new AppError('No coordinates found with this IP', 404));
         };
     }
         
@@ -34,6 +36,6 @@ const getAnalytics = async (req, res, next)  => {
     res.status(200).json({
         distance: totalLength
     })
-};
+});
 
 export default getAnalytics;
