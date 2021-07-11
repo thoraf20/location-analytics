@@ -1,7 +1,7 @@
 import fs from 'fs';
 import calculateDistance from '../calculateDistance';
 import catchAsync from "../catchAsync";
-import AppError from "./utilities/appError";
+import AppError from "../../utilities/appError";
 
 const fsp = fs.promises;
 
